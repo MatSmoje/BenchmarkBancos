@@ -1,14 +1,9 @@
 import pandas as pd
 from os import listdir
 
-
-
-
 def readData():
     ls_instrucciones = listdir('201907-280819/Instrucciones')
     files = [file for file in ls_instrucciones if file.startswith('Modelo')]
-
-
 
     for file in files: 
         parquetName = file.split(sep='.')[0]
@@ -45,7 +40,7 @@ def readData():
         print(df)
 
             #print('----')
-        df.to_parquet(f"{parquetName}.parquet")
+        df.to_parquet(f"tablas/{parquetName}.parquet")
 
 
 readData()
