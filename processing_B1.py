@@ -19,10 +19,15 @@ def main():
         os.makedirs(newPath)
 
     files = getFiles()
+    df_Final = pd.DataFrame()
     for file in files: 
-        tableName = f'estado_situacion_financiera_{getTableName(file)}'
+        bank_code = file.split('.')[0][-3:]
         df = prepareData(file)
-        df.to_parquet(f"tablas/{tableName}.parquet")
+        df['bank_code'] = bank_code
+        df_Final = pd.concat([df_Final,df])
+    df_Final = df_Final.reset_index(drop = True)
+    print(df_Final)
+    df_Final.to_parquet(f"tablas/B1.parquet")
 
 def getFiles():
     path = '201907-280819'
