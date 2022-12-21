@@ -11,7 +11,6 @@ import pandas as pd
 
 
 def main():
-    tableName = 'estado_situacion_financiera'
     newPath = 'tablas'
 
     exist = os.path.exists(newPath)
