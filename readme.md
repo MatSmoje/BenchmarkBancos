@@ -5,10 +5,10 @@ After gathering all the data, I am going to show it using different kind of char
 ## Technologies used:
 - Jupyter Lab
 - Environment with:  
-- Python 3.10  
-- Pyplot  
-- Pandas 1.5.2  
-- PyArrow  
+    - Python 3.10.8    
+    - plotly 5.9.0  
+    - Pandas 1.5.2  
+
 
 ## Diagram: 
 
