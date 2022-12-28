@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+from datetime import date
 
 #B1 = un estado de situación financiera consolidado.
 #Para los archivos del tipo B1, el orden de las columnas es la siguiente:
@@ -11,26 +12,36 @@ import pandas as pd
 
 
 def main():
-    newPath = 'tablas'
+    createTableIfNotExist()
+    directories = [ name for name in os.listdir('.') if os.path.isdir(os.path.join('.', name)) ]
+    directories = [int(x)  for x in directories if x.isdigit()]
 
+    df_Final = pd.DataFrame()
+
+    for dir in directories:
+        fecha = str(dir)
+        files = getFiles(dir)
+        
+        for file in files: 
+            bank_code = file.split('.')[0][-3:]
+            df = prepareData(file)
+            df['fecha'] = date(int(fecha[0:4]),int(fecha[4:]),1)
+            df['bank_code'] = bank_code
+            df_Final = pd.concat([df_Final,df])
+        df_Final = df_Final.reset_index(drop = True)
+        print(df_Final)
+    df_Final.to_parquet(f"tablas/B1.parquet")
+
+def createTableIfNotExist():
+    newPath = 'tablas'
     exist = os.path.exists(newPath)
     if not exist:
         os.makedirs(newPath)
 
-    files = getFiles()
-    df_Final = pd.DataFrame()
-    for file in files: 
-        bank_code = file.split('.')[0][-3:]
-        df = prepareData(file)
-        df['bank_code'] = bank_code
-        df_Final = pd.concat([df_Final,df])
-    df_Final = df_Final.reset_index(drop = True)
-    print(df_Final)
-    df_Final.to_parquet(f"tablas/B1.parquet")
-
-def getFiles():
-    path = '201907-280819'
-    ls_instrucciones = os.listdir(path)
+def getFiles(path):
+    print(path)
+    ls_instrucciones = os.listdir(f'{os.getcwd()}/{path}')
+    print(ls_instrucciones)
     files = [f"{path}/{file}" for file in ls_instrucciones if file.startswith('b')]
     return files
 
