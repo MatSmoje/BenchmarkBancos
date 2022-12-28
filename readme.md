@@ -13,7 +13,12 @@ After gathering all the data, I am going to show it using different kind of char
 ## Diagram: 
 
 ### Graph.ipynb Output:
+#### Pie Chart
 ![Drag Racing](images/newplot.png)
+#### Bar Chart
+![Drag Racing](images/barPlot.png)
+#### Line Chart
+![Drag Racing](images/linePlot.png)
 
 
 ## Final thoughts
